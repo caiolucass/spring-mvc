@@ -3,6 +3,7 @@ package com.projeto.mvc.service;
 import com.projeto.mvc.exception.InvoiceNotFoundException;
 import com.projeto.mvc.model.Invoice;
 import com.projeto.mvc.repository.InvoiceRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class InvoiceServiceImpl implements IInvoiceService{
 
     @Autowired
@@ -17,6 +19,7 @@ public class InvoiceServiceImpl implements IInvoiceService{
 
     @Override
     public Invoice saveInvoice(Invoice invoice) {
+        log.info("Salvando novo Invoice {} no banco de dados.", invoice.getName());
         return invoiceRepository.save(invoice);
     }
 
@@ -38,11 +41,13 @@ public class InvoiceServiceImpl implements IInvoiceService{
 
     @Override
     public void deleteInvoiceById(Long id) {
-         invoiceRepository.deleteById(id);
+        log.info("Invoice excluido {} do banco de dados.", id);
+        invoiceRepository.deleteById(id);
     }
 
     @Override
     public void updateInvoice(Invoice invoice) {
-          invoiceRepository.save(invoice);
+        log.info("Invoice atualizado novo {} no banco de dados.", invoice.getName());
+        invoiceRepository.save(invoice);
     }
 }
