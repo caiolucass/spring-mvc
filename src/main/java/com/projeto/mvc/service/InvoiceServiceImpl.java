@@ -29,7 +29,7 @@ public class InvoiceServiceImpl implements IInvoiceService{
     }
 
     @Override
-    public Invoice getInvoiceBtId(Long id) {
+    public Invoice getInvoiceById(Long id) {
         Optional<Invoice> opt = invoiceRepository.findById(id);
         if(opt.isPresent()){
             return opt.get();

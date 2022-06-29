@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InvoiceTest {
 
     @Test
-    public void InvoiceTest(){
+    public void InvoiceModelTest(){
         Invoice invoice = new Invoice(1L,"name", "Belo Horizonte", 23.5);
         assertEquals(1L, invoice.getId());
         assertEquals("name", invoice.getName());

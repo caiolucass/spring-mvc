@@ -18,17 +18,18 @@ public class InvoiceController {
     @Autowired
     private IInvoiceService service;
 
-    @GetMapping("/")
+
+    @RequestMapping("/")
     public String showHomePage(){
         return "homePage";
     }
 
-    @GetMapping("/register")
+    @RequestMapping("/register")
     public String showRegistration(){
         return "registerInvoicePage";
     }
 
-    @PostMapping("/save")
+    @RequestMapping("/save")
     public String saveInvoice( @ModelAttribute Invoice invoice, Model model){
         service.saveInvoice(invoice);
         Long id = service.saveInvoice(invoice).getId();
@@ -37,7 +38,7 @@ public class InvoiceController {
         return "registerInvoicePage";
     }
 
-    @GetMapping("/getAllInvoices")
+    @RequestMapping("/getAllInvoices")
     public String getAllInvoices(@RequestParam(value = "message", required = false) String message, Model model){
         List<Invoice> invoices = service.getAllInvoices();
         model.addAttribute(invoices);
@@ -45,11 +46,11 @@ public class InvoiceController {
         return "allInvoicesPage";
     }
 
-    @GetMapping("/edit")
+    @RequestMapping("/edit")
     public String getEditPage(Model model, RedirectAttributes attributes, @RequestParam Long id){
         String page = null;
         try{
-            Invoice invoice = service.getInvoiceBtId(id);
+            Invoice invoice = service.getInvoiceById(id);
             model.addAttribute("invoice", invoice);
             page="editInvoicePage";
         }catch (InvoiceNotFoundException e){
@@ -60,7 +61,7 @@ public class InvoiceController {
         return page;
     }
 
-    @PostMapping("/update")
+    @RequestMapping("/update")
     public String updateInvoice(@ModelAttribute Invoice invoice, RedirectAttributes attributes){
         service.updateInvoice(invoice);
         Long id = invoice.getId();
@@ -68,7 +69,7 @@ public class InvoiceController {
         return "redirect:getAllInvoices";
     }
 
-    @GetMapping("/delete")
+    @RequestMapping("/delete")
     public String deleteInvoice(@RequestParam Long id, RedirectAttributes attributes){
          try {
              service.deleteInvoiceById(id);
